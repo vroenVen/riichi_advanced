@@ -1,11 +1,3 @@
-def fix_kan:
-  .show_when |= map(if type == "object" and .name == "tile_not_drawn" then .opts = [-8] else . end)
-  |
-  .actions |= map(if type == "array" and .[0] == "run" and .[1] == "do_kan_draw" then .[2] = {"status": "kan"} else . end);
-
-def replace($from; $to):
-  if . == $from then $to else . end;
-
 .num_players = 3
 |
 .initial_score = 35000
@@ -30,6 +22,13 @@ def replace($from; $to):
   "8m", "8m", "8m", "8m"
 ]
 |
+# we need this in case kan mod is not enabled
+.functions.do_kan_draw = [
+  ["set_status", "$status"],
+  ["shift_tile_to_dead_wall", 1],
+  ["draw", 1, "opposite_end"]
+]
+|
 # change "pei" set to "pei_triplet" (since our call is named "pei")
 .set_definitions |= del(.pei)
 |
@@ -43,7 +42,7 @@ walk(if . == "pei" then "pei_triplet" else . end)
   "tsumo_loss": true
 }
 |
-.functions.discard_passed += [["as", "others", [["unset_status", "pei"]]]]
+.functions.discard_passed |= [["as", "others", [["unset_status", "pei"]]]] + .
 |
 # nukidora
 .extra_yaku += [
@@ -58,15 +57,6 @@ walk(if . == "pei" then "pei_triplet" else . end)
 |
 # no chii
 .buttons |= del(.chii)
-|
-# fix kans
-.functions.do_kan_draw |= map(replace(["set_status", "kan"]; ["set_status", "$status"]))
-|
-.buttons.daiminkan |= fix_kan
-|
-.buttons.kakan |= fix_kan
-|
-.buttons.ankan |= fix_kan
 |
 # add pei
 .buttons.pei = {

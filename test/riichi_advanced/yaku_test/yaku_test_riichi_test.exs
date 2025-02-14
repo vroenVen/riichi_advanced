@@ -4,6 +4,32 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
 
   # TODO local yaku lol
 
+  test "riichi - double riichi ippatsu" do
+    TestUtils.test_yaku_advanced("riichi", ["yaku/riichi", "yaku/ippatsu"], """
+    {
+      "starting_hand": {
+        "east": ["2m", "3m", "4m", "4m", "5m", "6m", "7p", "7p", "7p", "8s", "8s", "8s", "6p"],
+        "south": ["1m", "4m", "7m", "2p", "5p", "8p", "3s", "6s", "9s", "1z", "2z", "3z", "4z"],
+        "west": ["1m", "4m", "7m", "2p", "5p", "8p", "3s", "6s", "9s", "1z", "2z", "3z", "4z"],
+        "north": ["1m", "4m", "7m", "2p", "5p", "8p", "3s", "6s", "9s", "1z", "2z", "3z", "4z"]
+      },
+      "starting_draws": ["1z", "6p"]
+    }
+    """, [
+      %{"type" => "buttons_pressed", "buttons" => [%{"button" => "riichi"}, nil, nil, nil]},
+      %{"type" => "discard", "tile" => "1z", "player" => 0, "tsumogiri" => true},
+      %{"type" => "discard", "tile" => "6p", "player" => 1, "tsumogiri" => true},
+      %{"type" => "buttons_pressed", "buttons" => [%{"button" => "ron"}, nil, nil, nil]}
+    ], %{
+      east: %{
+        yaku: [{"Double Riichi", 2}, {"Ippatsu", 1}, {"Tanyao", 1}],
+        yaku2: [],
+        minipoints: 40
+      }
+    })
+  end
+
+
   test "riichi - tanyao nomi" do
     TestUtils.test_yaku_advanced("riichi", [], """
     {
@@ -108,7 +134,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - pinfu chankan" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["1m", "4m", "7m", "2p", "5p", "8p", "3s", "6s", "9s", "1z", "2z", "3z", "4z"],
@@ -137,7 +163,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - rinshan" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["6m", "7m", "8m", "5p", "6p", "7p", "8p", "9p", "9p", "9p", "2m", "2m", "2m"],
@@ -597,7 +623,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - sankantsu" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["8p", "9p", "9s", "9s", "2p", "2p", "2p", "2m", "2m", "1z", "7z", "7z", "7z"],
@@ -634,7 +660,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - open toitoi shousangen honitsu" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["7p", "7p", "9s", "9s", "9s", "6z", "6z", "5z", "5z", "5z", "7z", "7z", "1z"],
@@ -749,7 +775,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - sanankou after completing sequence" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["1m", "1m", "1m", "7s", "8s", "3z", "3z", "3z", "5z", "5z", "2p", "2p", "2p"],
@@ -846,7 +872,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - daisangen tsuuiisou suuankou" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["5z", "5z", "5z", "6z", "6z", "6z", "2z", "2z", "3z", "3z", "7z", "7z", "7z"],
@@ -1106,7 +1132,7 @@ defmodule RiichiAdvanced.YakuTest.Riichi do
   end
 
   test "riichi - daisuushii suukantsu" do
-    TestUtils.test_yaku_advanced("riichi", [], """
+    TestUtils.test_yaku_advanced("riichi", ["kan"], """
     {
       "starting_hand": {
         "east": ["1z", "1z", "1z", "2z", "2z", "2z", "3z", "3z", "3z", "4z", "4z", "5m", "1p"],
