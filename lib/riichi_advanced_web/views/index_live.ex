@@ -35,6 +35,7 @@ defmodule RiichiAdvancedWeb.IndexLive do
       {"mcr",          "MCR", "Mahjong Competition Rules. Has a scoring system of a different kind of complexity than Riichi."},
       {"taiwanese",    "Taiwanese", "16-tile mahjong with riichi mechanics."},
       {"bloody30faan", "Bloody 30-Faan Jokers", "Bloody end rules mahjong, with Vietnamese jokers, and somehow more yaku than MCR."},
+      {"vens_Maaahjong", "vens_Maaahjong", "custom version of mahjong baised off of a shitpost"},
       {"american",     "American (2024 NMJL)", "American mahjong. Assemble hands with jokers, and declare other players' hands dead. Rules are not available for this one."},
       {"vietnamese",   "Vietnamese", "Mahjong with eight differently powerful joker tiles."},
       {"malaysian",    "Malaysian", "Three-player mahjong with 16 flowers, a unique joker tile, and instant payouts."},
